@@ -1,0 +1,25 @@
+/* src/ConfirmationModal.css */
+
+.modal {
+  margin: auto;
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 50%;
+  height: 50%;
+  overflow: auto;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.open {
+  display: block;
+}

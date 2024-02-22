@@ -1,0 +1,714 @@
+/* src/App.css */
+
+/* General styles */
+
+@media screen and (max-width: 600px) {
+  /* Styles for small screens */
+  body {
+    font-size: 14px; /* Adjust font size for small screens */
+  }
+
+  /* Add more styles as needed */
+}
+
+@media screen and (min-width: 601px) and (max-width: 1200px) {
+  /* Styles for medium screens */
+  body {
+    font-size: 16px; /* Adjust font size for medium screens */
+  }
+
+  /* Add more styles as needed */
+}
+/* General styles */
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.App-header {
+  background-color: #282c34;
+  padding: 20px;
+  color: white;
+}
+
+.App-main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  
+}
+
+/* Add this to hide the scroll bar  */
+body, html {
+  overflow: hidden;
+}
+
+
+button {
+    background-color: black;
+    border-radius: 6px;
+	border: 2px solid #555555;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    transition-duration: 0.4s;
+    font-size: 20px;
+    cursor: pointer;
+	margin: 5px;
+}
+
+button:hover {
+    color: white;	
+    scale: 1.1;
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.score text {
+  font-size: 32px; /* Adjust the font size as needed */
+  fill: white;
+  fill-opacity: 1.0;
+  transition: fill-opacity .5s;
+  
+}
+
+svg g.score .hexagon {
+  fill-opacity: 0.6;	
+  stroke: #7be3f6;
+  stroke-width: 0;
+  transition: fill-opacity .5s;	
+  scale: 1.075;
+ /* pointer-events: none;  this will remove issue with score but no button interaction */
+  
+  
+}
+
+svg g.score .hexagon-group:hover {
+  stroke-width: 0; /* Remove stroke on hover */
+  fill-opacity: 0; /* Maintain the same fill opacity on hover */
+  cursor: default; /* Remove pointer cursor on hover */
+  
+}
+
+
+
+/* this is overriding ownership color
+svg g {
+  fill: #4499a9;
+  fill-opacity: 0.1;
+}
+*/
+
+svg g:hover {
+  fill: #7be3f6;
+  fill-opacity: 0.7;
+}
+svg g:hover text {
+  fill-opacity: 1;
+  
+}
+
+circle {	
+scale: 2;	/* base circle size */
+}
+
+.selected circle{	
+scale: 2.5;	/* larger selected circle size */
+
+}
+
+
+/* Highlighted Hexagons */
+svg g.active .hexagon {
+  fill-opacity: 0.5;
+  animation: pulse 3s ease-in-out infinite; 
+}
+
+
+/*Class for selected hexagon interior*/
+svg .selected .hexagon {
+  fill: ; /* Change the background color to yellow (or any other color you prefer) */
+  filter: drop-shadow(2px 0px 4px antiquewhite);
+  backdrop-filter: sepia(100%); 
+  fill-opacity: .15;
+  pointer-events: none;
+}
+
+/*Class for selected hexagon borders */
+svg g.selected polygon {
+  stroke: yellow; /* Set the border color for the selected hexagon */
+  stroke-width: 0.4; /* Set the border width */
+  transition: stroke .5s; /* Add transition for a smooth effect */
+}
+
+/*blue borders */
+svg g polygon {
+  stroke: #7be3f6;
+  stroke-width: 0.2;
+  transition: fill-opacity .5s;
+  
+}
+
+svg g text {
+  font-size: 0.17em;
+  fill: white;
+  fill-opacity: 0.7;
+  transition: fill-opacity .5s;
+}
+
+svg path {
+  fill: none;
+  stroke: #03090a;
+  stroke-width: 0.2em;
+  stroke-opacity: 0.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+
+/* CSS animation with cubic-bezier timing function */
+@keyframes pulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+	 
+  }
+
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+	
+  }
+
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+	 
+  }
+  animation-timing-function: cubic-bezier(0.4, 2.8, 0.4, 1.0); /* Customize the cubic-bezier control points */
+}
+
+
+
+/* Style hexagons for owner 0 */
+svg g[owner="0"] {
+  fill: DimGray; /* Set the fill color for owner 1 hexagons */
+  fill-opacity: 0.2; /* Set the fill opacity for owner 1 hexagons */
+  	
+  
+}	
+
+
+/* Style hexagons for owner 1 */
+svg g[owner="1"] {
+  fill: blue; /* Set the fill color for owner 1 hexagons */
+  fill-opacity: 0.2; /* Set the fill opacity for owner 1 hexagons */ 
+}
+
+/* Style hexagons for owner 2 */
+svg g[owner="2"] {
+  fill: red; /* Set the fill color for owner 2 hexagons */
+  fill-opacity: 0.2; /* Set the fill opacity for owner 2 hexagons */
+}
+
+/* PUSHED TARGET ANIMATIONS */
+
+@keyframes nudgeAnimationWest {
+  0% {
+	transform: translateX(14%);
+	visibility: visible;
+  }
+  25% {
+	transform: translateX(10%);
+  }
+  50% {
+    transform: translateX(7%);
+  }
+  75% {
+  
+	transform: translateX(3%);
+  }
+  100% {
+    transform: translateX(-1%);
+  }
+}
+
+svg g.West .hexagon {
+  animation: nudgeAnimationWest 0.5s ease-in-out backwards;
+  visibility: hidden;
+}
+
+
+@keyframes nudgeAnimationEast {
+  0% {
+	transform: translateX(-14%);
+	visibility: visible;
+  }
+  25% {
+	transform: translateX(-10%);
+  }
+  50% {
+    transform: translateX(-7%);
+  }
+  75% {
+	transform: translateX(-3%);
+  }
+  100% {
+    transform: translateX(1%);
+  }
+}
+
+svg g.East .hexagon {
+  animation: nudgeAnimationEast 0.5s ease-in-out backwards;
+  visibility: hidden;
+}
+
+@keyframes nudgeAnimationNW {
+  0% {
+	transform: translate(7.5%, 12.75%);
+	visibility: visible;
+  }
+  25% {
+ 
+	transform: translate(5.625%, 9.5625%);
+  }
+  50% {
+    transform: translate(3.75%, 6.375%);
+  }
+  75% {
+	transform: translate(1.875%, 3.1875%);
+  }
+  100% {
+    transform: translate(-1%, -1%);
+  }
+}
+
+svg g.NW .hexagon {
+  animation: nudgeAnimationNW 0.5s ease-in-out backwards;
+  visibility: hidden;
+}
+
+
+@keyframes nudgeAnimationSE {
+  0% {
+	transform: translate(-7.5%, -12.75%);
+	visibility: visible;
+  }
+  25% {
+	transform: translate(-5.625%, -9.5625%);
+  }
+  50% {
+    transform: translate(-3.75%, -6.375%);
+  }
+  75% {
+	transform: translate(-1.875%, -3.1875%);
+  }
+  100% {
+    transform: translate(1%, 1%);
+  }
+}
+
+svg g.SE .hexagon {
+  animation: nudgeAnimationSE .5s ease-in-out backwards;
+  visibility: hidden;
+}
+
+@keyframes nudgeAnimationNE {
+  0% {
+	transform: translate(-7.5%, 12.75%);
+	visibility: visible;
+  }
+  25% {
+	transform: translate(-5.625%, 9.5625%);
+  }
+  50% {
+    transform: translate(-3.75%, 6.375%);
+  }
+  75% {
+  
+	transform: translate(-1.875%, 3.1875%);
+  }
+  100% {
+    transform: translate(1%, -1%);
+  }
+}
+
+svg g.NE .hexagon {
+  animation: nudgeAnimationNE .5s ease-in-out backwards;
+  visibility: hidden;
+}
+
+@keyframes nudgeAnimationSW {
+  0% {
+	transform: translate(7.5%, -12.75%);
+	visibility: visible;
+  }
+  25% {
+	transform: translate(5.625%, -9.5625%);
+  }
+  50% {
+    transform: translate(3.75%, -6.375%);
+  }
+  75% {
+	transform: translate(1.875%, -3.1875%);
+  }
+  100% {
+    transform: translate(-1%, 1%);
+  }
+}
+
+svg g.SW .hexagon {
+  animation: nudgeAnimationSW .5s ease-in-out backwards;
+  visibility: hidden;
+}
+
+/* PUSH SOURCE ANIMATIONS */
+
+@keyframes snudgeAnimationWest {
+  0% {
+	transform: translateX(0%);
+	scale: 4;
+  }
+  5% {
+	transform: translateX(2%);
+  }
+  10% {
+    transform: translateX(-4%);
+  }
+  20% {
+	transform: translateX(-2%);
+	scale: 2;
+  }
+  100% {
+    transform: translateX(0%);
+	scale: 1;
+  }
+}
+
+.sWest circle{	
+animation: snudgeAnimationWest 0.5s ease-in-out backwards;
+scale: 2;	/* larget selected circle size */
+}
+
+
+@keyframes snudgeAnimationEast {
+  0% {
+	transform: translateX(0%);
+	scale: 4;
+  }
+  5% {
+	transform: translateX(-2%);
+  }
+  10% {
+    transform: translateX(4%);
+  }
+  20% {
+	transform: translateX(2%);
+	scale: 2;
+  }
+  100% {
+    transform: translateX(0%);
+	scale: 1;
+  }
+}
+
+.sEast circle{	
+animation: snudgeAnimationEast 0.5s ease-in-out backwards;
+scale: 2;	/* larget selected circle size */
+}
+
+
+
+@keyframes snudgeAnimationWest {
+  0% {
+	transform: translateX(0%);
+	scale: 4;
+  }
+  5% {
+	transform: translateX(2%);
+  }
+  10% {
+    transform: translateX(-4%);
+  }
+  20% {
+	transform: translateX(-2%);
+	scale: 2;
+  }
+  100% {
+    transform: translateX(0%);
+	scale: 1;
+  }
+}
+
+.sWest circle{	
+animation: snudgeAnimationWest 0.5s ease-in-out backwards;
+scale: 2;	/* larget selected circle size */
+}
+
+
+@keyframes snudgeAnimationNW {
+  0% {
+	transform: translate(0%, 0%);
+	scale: 4;
+  }
+  5% {
+	transform: translate(1.7%, 3%);
+  }
+  10% {
+    transform: translate(-1.7%, -3%);
+  }
+  20% {
+	transform: translate(-.85%, -1.5%);
+	scale: 2;
+  }
+  100% {
+    transform: translate(0%);
+	scale: 1;
+  }
+}
+
+.sNW circle{	
+animation: snudgeAnimationNW 0.5s ease-in-out backwards;
+scale: 2;	/* larget selected circle size */
+}
+
+@keyframes snudgeAnimationSE {
+  0% {
+	transform: translate(0%, 0%);
+	scale: 4;
+  }
+  5% {
+	transform: translate(-1.7%, -3%);
+  }
+  10% {
+    transform: translate(1.7%, 3%);
+  }
+  20% {
+	transform: translate(.85%, 1.5%);
+	scale: 2;
+  }
+  100% {
+    transform: translate(0%);
+	scale: 1;
+  }
+}
+
+.sSE circle{	
+animation: snudgeAnimationSE 0.5s ease-in-out backwards;
+scale: 2;	/* larget selected circle size */
+}
+
+@keyframes snudgeAnimationNE {
+  0% {
+	transform: translate(0%, 0%);
+	scale: 4;
+  }
+  5% {
+	transform: translate(-1.7%, 3%);
+  }
+  10% {
+    transform: translate(1.7%, -3%);
+  }
+  20% {
+	transform: translate(.85%, -1.5%);
+	scale: 2;
+  }
+  100% {
+    transform: translate(0%);
+	scale: 1;
+  }
+}
+
+.sNE circle{	
+animation: snudgeAnimationNE 0.5s ease-in-out backwards;
+scale: 2;	/* larget selected circle size */
+}
+
+@keyframes snudgeAnimationSW {
+  0% {
+	transform: translate(0%, 0%);
+	scale: 4;
+  }
+  5% {
+	transform: translate(1.7%, -3%);
+  }
+  10% {
+    transform: translate(-1.7%, 3%);
+  }
+  20% {
+	transform: translate(-.85%, 1.5%);
+	scale: 2;
+  }
+  100% {
+    transform: translate(0%);
+	scale: 1;
+  }
+}
+
+.sSW circle{	
+animation: snudgeAnimationSW 0.5s ease-in-out backwards;
+scale: 2;	/* larget selected circle size */
+}
+
+
+	/* falling off animations here */
+
+
+@keyframes fnudgeAnimationNW {
+  0% {
+	transform: translate(1%, 1%);
+	visibility: visible;
+	opacity: 1;
+  }
+  50% {
+    transform: translate(-7.5%, -12.75%);
+	opacity: 1;
+  }
+  100% { 
+	transform: translate(-7.5%, -12.75%);
+	opacity: 0;
+  }
+}
+
+.fNW .hexagon{	
+animation: fnudgeAnimationNW 1s ease-in-out backwards;
+opacity: 0;
+
+}
+
+@keyframes fnudgeAnimationNE {
+  0% {
+	transform: translate(1%, 1%);
+	visibility: visible;
+	opacity: 1;
+  }
+  50% {
+    transform: translate(7.5%, -12.75%);
+	opacity: 1;
+  }
+  100% { 
+	transform: translate(7.5%, -12.75%);
+	opacity: 0;
+  }
+}
+
+.fNE .hexagon{	
+animation: fnudgeAnimationNE 1s ease-in-out backwards;
+opacity: 0;
+
+}
+
+
+
+@keyframes fnudgeAnimationSE {
+  0% {
+	transform: translate(-1%, -1%);
+	visibility: visible;
+	opacity: 1;
+  }
+  50% {
+    transform: translate(7.5%, 12.75%);
+	opacity: 1;
+  }
+  100% { 
+	transform: translate(7.5%, 12.75%);
+	opacity: 0;
+  }
+}
+
+.fSE .hexagon{	
+animation: fnudgeAnimationSE 1s ease-in-out backwards;
+opacity: 0;	/* larget selected circle size */
+}
+
+@keyframes fnudgeAnimationSW {
+  0% {
+	transform: translate(-1%, -1%);
+	visibility: visible;
+	opacity: 1;
+  }
+  50% {
+    transform: translate(-7.5%, 12.75%);
+	opacity: 1;
+  }
+  100% { 
+	transform: translate(-7.5%, 12.75%);
+	opacity: 0;
+  }
+}
+
+.fSW .hexagon{	
+animation: fnudgeAnimationSW 1s ease-in-out backwards;
+opacity: 0;	/* larget selected circle size */
+}
+
+@keyframes fnudgeAnimationWest {
+  0% {
+	transform: translateX(0%);
+	visibility: visible;
+	opacity: 1;
+  }
+  50% {
+    transform: translateX(-15%);
+	opacity: 1;
+  }
+  100% { 
+	transform: translateX(-15%);
+	opacity: 0;
+  }
+}
+
+.fWest .hexagon{	
+animation: fnudgeAnimationWest 1s ease-in-out backwards;
+opacity: 0;	/* larget selected circle size */
+}
+
+@keyframes fnudgeAnimationEast {
+  0% {
+	transform: translateX(0%);
+	visibility: visible;
+	opacity: 1;
+  }
+  50% {
+    transform: translateX(15%);
+	opacity: 1;
+  }
+  100% { 
+	transform: translateX(15%);
+	opacity: 0;
+  }
+}
+
+.fEast .hexagon{	
+animation: fnudgeAnimationEast 1s ease-in-out backwards;
+opacity: 0;	/* larget selected circle size */
+}
+
+
+
+text.push-animation {
+	
+  transform: translateY(2.5%);
+  opacity: 0;
+  animation: fade 2s ease-in-out backwards; 
+  scale: 1.6;
+  
+
+	
+}
+
+@keyframes fade {
+  0% {
+    transform: translateY(2.5%);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-5.5%);
+    opacity: 0.2;
+  }
+}
