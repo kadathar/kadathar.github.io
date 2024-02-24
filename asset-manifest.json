@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/kadathar.github.io/static/css/main.4de11a3b.css",
-    "main.js": "/kadathar.github.io/static/js/main.cd30aeb9.js",
-    "static/js/787.14b2e020.chunk.js": "/kadathar.github.io/static/js/787.14b2e020.chunk.js",
-    "index.html": "/kadathar.github.io/index.html",
-    "main.4de11a3b.css.map": "/kadathar.github.io/static/css/main.4de11a3b.css.map",
-    "main.cd30aeb9.js.map": "/kadathar.github.io/static/js/main.cd30aeb9.js.map",
-    "787.14b2e020.chunk.js.map": "/kadathar.github.io/static/js/787.14b2e020.chunk.js.map"
+    "main.css": "/static/css/main.4de11a3b.css",
+    "main.js": "/static/js/main.a861c4c0.js",
+    "static/js/787.14b2e020.chunk.js": "/static/js/787.14b2e020.chunk.js",
+    "index.html": "/index.html",
+    "main.4de11a3b.css.map": "/static/css/main.4de11a3b.css.map",
+    "main.a861c4c0.js.map": "/static/js/main.a861c4c0.js.map",
+    "787.14b2e020.chunk.js.map": "/static/js/787.14b2e020.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.4de11a3b.css",
-    "static/js/main.cd30aeb9.js"
+    "static/js/main.a861c4c0.js"
   ]
 }
