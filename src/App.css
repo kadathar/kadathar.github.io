@@ -134,7 +134,7 @@ svg g.active .hexagon {
 svg .selected .hexagon {
   fill: ; /* Change the background color to yellow (or any other color you prefer) */
   filter: drop-shadow(2px 0px 4px antiquewhite);
-  backdrop-filter: sepia(100%); 
+  backdrop-filter: sepia(to); 
   fill-opacity: .15;
   pointer-events: none;
 }
@@ -173,7 +173,7 @@ svg path {
 
 /* CSS animation with cubic-bezier timing function */
 @keyframes pulse {
-  0% {
+  from {
     transform: scale(0.95);
     box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
 	 
@@ -185,7 +185,7 @@ svg path {
 	
   }
 
-  100% {
+  to {
     transform: scale(0.95);
     box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
 	 
@@ -219,21 +219,21 @@ svg g[owner="2"] {
 /* PUSHED TARGET ANIMATIONS */
 
 @keyframes nudgeAnimationWest {
-  0% {
+  from {
 	transform: translateX(14%);
 	visibility: visible;
   }
   25% {
-	transform: translateX(10%);
+	transform: translateX(1);
   }
-  50% {
+  5 {
     transform: translateX(7%);
   }
   75% {
   
 	transform: translateX(3%);
   }
-  100% {
+  to {
     transform: translateX(-1%);
   }
 }
@@ -245,20 +245,20 @@ svg g.West .hexagon {
 
 
 @keyframes nudgeAnimationEast {
-  0% {
+  from {
 	transform: translateX(-14%);
 	visibility: visible;
   }
   25% {
-	transform: translateX(-10%);
+	transform: translateX(-1);
   }
-  50% {
+  5 {
     transform: translateX(-7%);
   }
   75% {
 	transform: translateX(-3%);
   }
-  100% {
+  to {
     transform: translateX(1%);
   }
 }
@@ -269,7 +269,7 @@ svg g.East .hexagon {
 }
 
 @keyframes nudgeAnimationNW {
-  0% {
+  from {
 	transform: translate(7.5%, 12.75%);
 	visibility: visible;
   }
@@ -277,13 +277,13 @@ svg g.East .hexagon {
  
 	transform: translate(5.625%, 9.5625%);
   }
-  50% {
+  5 {
     transform: translate(3.75%, 6.375%);
   }
   75% {
 	transform: translate(1.875%, 3.1875%);
   }
-  100% {
+  to {
     transform: translate(-1%, -1%);
   }
 }
@@ -295,20 +295,20 @@ svg g.NW .hexagon {
 
 
 @keyframes nudgeAnimationSE {
-  0% {
+  from {
 	transform: translate(-7.5%, -12.75%);
 	visibility: visible;
   }
   25% {
 	transform: translate(-5.625%, -9.5625%);
   }
-  50% {
+  5 {
     transform: translate(-3.75%, -6.375%);
   }
   75% {
 	transform: translate(-1.875%, -3.1875%);
   }
-  100% {
+  to {
     transform: translate(1%, 1%);
   }
 }
@@ -319,7 +319,7 @@ svg g.SE .hexagon {
 }
 
 @keyframes nudgeAnimationNE {
-  0% {
+  from {
 	transform: translate(-7.5%, 12.75%);
 	visibility: visible;
   }
@@ -333,7 +333,7 @@ svg g.SE .hexagon {
   
 	transform: translate(-1.875%, 3.1875%);
   }
-  100% {
+  to {
     transform: translate(1%, -1%);
   }
 }
@@ -344,7 +344,7 @@ svg g.NE .hexagon {
 }
 
 @keyframes nudgeAnimationSW {
-  0% {
+  from {
 	transform: translate(7.5%, -12.75%);
 	visibility: visible;
   }
@@ -357,7 +357,7 @@ svg g.NE .hexagon {
   75% {
 	transform: translate(1.875%, -3.1875%);
   }
-  100% {
+  to {
     transform: translate(-1%, 1%);
   }
 }
@@ -370,7 +370,7 @@ svg g.SW .hexagon {
 /* PUSH SOURCE ANIMATIONS */
 
 @keyframes snudgeAnimationWest {
-  0% {
+  from {
 	transform: translateX(0%);
 	scale: 4;
   }
@@ -384,7 +384,7 @@ svg g.SW .hexagon {
 	transform: translateX(-2%);
 	scale: 2;
   }
-  100% {
+  to {
     transform: translateX(0%);
 	scale: 1;
   }
@@ -397,7 +397,7 @@ scale: 2;	/* larget selected circle size */
 
 
 @keyframes snudgeAnimationEast {
-  0% {
+  from {
 	transform: translateX(0%);
 	scale: 4;
   }
@@ -411,7 +411,7 @@ scale: 2;	/* larget selected circle size */
 	transform: translateX(2%);
 	scale: 2;
   }
-  100% {
+  to {
     transform: translateX(0%);
 	scale: 1;
   }
@@ -425,7 +425,7 @@ scale: 2;	/* larget selected circle size */
 
 
 @keyframes snudgeAnimationWest {
-  0% {
+  from {
 	transform: translateX(0%);
 	scale: 4;
   }
@@ -439,7 +439,7 @@ scale: 2;	/* larget selected circle size */
 	transform: translateX(-2%);
 	scale: 2;
   }
-  100% {
+  to {
     transform: translateX(0%);
 	scale: 1;
   }
@@ -452,7 +452,7 @@ scale: 2;	/* larget selected circle size */
 
 
 @keyframes snudgeAnimationNW {
-  0% {
+  from {
 	transform: translate(0%, 0%);
 	scale: 4;
   }
@@ -466,7 +466,7 @@ scale: 2;	/* larget selected circle size */
 	transform: translate(-.85%, -1.5%);
 	scale: 2;
   }
-  100% {
+  to {
     transform: translate(0%);
 	scale: 1;
   }
@@ -478,7 +478,7 @@ scale: 2;	/* larget selected circle size */
 }
 
 @keyframes snudgeAnimationSE {
-  0% {
+  from {
 	transform: translate(0%, 0%);
 	scale: 4;
   }
@@ -492,7 +492,7 @@ scale: 2;	/* larget selected circle size */
 	transform: translate(.85%, 1.5%);
 	scale: 2;
   }
-  100% {
+  to {
     transform: translate(0%);
 	scale: 1;
   }
@@ -504,7 +504,7 @@ scale: 2;	/* larget selected circle size */
 }
 
 @keyframes snudgeAnimationNE {
-  0% {
+  from {
 	transform: translate(0%, 0%);
 	scale: 4;
   }
@@ -518,7 +518,7 @@ scale: 2;	/* larget selected circle size */
 	transform: translate(.85%, -1.5%);
 	scale: 2;
   }
-  100% {
+  to {
     transform: translate(0%);
 	scale: 1;
   }
@@ -530,7 +530,7 @@ scale: 2;	/* larget selected circle size */
 }
 
 @keyframes snudgeAnimationSW {
-  0% {
+  from {
 	transform: translate(0%, 0%);
 	scale: 4;
   }
@@ -544,7 +544,7 @@ scale: 2;	/* larget selected circle size */
 	transform: translate(-.85%, 1.5%);
 	scale: 2;
   }
-  100% {
+  to {
     transform: translate(0%);
 	scale: 1;
   }
@@ -560,7 +560,7 @@ scale: 2;	/* larget selected circle size */
 
 
 @keyframes fnudgeAnimationNW {
-  0% {
+  from {
 	transform: translate(1%, 1%);
 	visibility: visible;
 	opacity: 1;
@@ -569,7 +569,7 @@ scale: 2;	/* larget selected circle size */
     transform: translate(-7.5%, -12.75%);
 	opacity: 1;
   }
-  100% { 
+  to { 
 	transform: translate(-7.5%, -12.75%);
 	opacity: 0;
   }
@@ -582,7 +582,7 @@ opacity: 0;
 }
 
 @keyframes fnudgeAnimationNE {
-  0% {
+  from {
 	transform: translate(1%, 1%);
 	visibility: visible;
 	opacity: 1;
@@ -591,7 +591,7 @@ opacity: 0;
     transform: translate(7.5%, -12.75%);
 	opacity: 1;
   }
-  100% { 
+  to { 
 	transform: translate(7.5%, -12.75%);
 	opacity: 0;
   }
@@ -606,7 +606,7 @@ opacity: 0;
 
 
 @keyframes fnudgeAnimationSE {
-  0% {
+  from {
 	transform: translate(-1%, -1%);
 	visibility: visible;
 	opacity: 1;
@@ -615,7 +615,7 @@ opacity: 0;
     transform: translate(7.5%, 12.75%);
 	opacity: 1;
   }
-  100% { 
+  to { 
 	transform: translate(7.5%, 12.75%);
 	opacity: 0;
   }
@@ -627,7 +627,7 @@ opacity: 0;	/* larget selected circle size */
 }
 
 @keyframes fnudgeAnimationSW {
-  0% {
+  from {
 	transform: translate(-1%, -1%);
 	visibility: visible;
 	opacity: 1;
@@ -636,7 +636,7 @@ opacity: 0;	/* larget selected circle size */
     transform: translate(-7.5%, 12.75%);
 	opacity: 1;
   }
-  100% { 
+  to { 
 	transform: translate(-7.5%, 12.75%);
 	opacity: 0;
   }
@@ -648,7 +648,7 @@ opacity: 0;	/* larget selected circle size */
 }
 
 @keyframes fnudgeAnimationWest {
-  0% {
+  from {
 	transform: translateX(0%);
 	visibility: visible;
 	opacity: 1;
@@ -657,7 +657,7 @@ opacity: 0;	/* larget selected circle size */
     transform: translateX(-15%);
 	opacity: 1;
   }
-  100% { 
+  to { 
 	transform: translateX(-15%);
 	opacity: 0;
   }
@@ -669,7 +669,7 @@ opacity: 0;	/* larget selected circle size */
 }
 
 @keyframes fnudgeAnimationEast {
-  0% {
+  from {
 	transform: translateX(0%);
 	visibility: visible;
 	opacity: 1;
@@ -678,7 +678,7 @@ opacity: 0;	/* larget selected circle size */
     transform: translateX(15%);
 	opacity: 1;
   }
-  100% { 
+  to { 
 	transform: translateX(15%);
 	opacity: 0;
   }
@@ -703,11 +703,11 @@ text.push-animation {
 }
 
 @keyframes fade {
-  0% {
+  from {
     transform: translateY(2.5%);
     opacity: 1;
   }
-  100% {
+  to {
     transform: translateY(-5.5%);
     opacity: 0.2;
   }
