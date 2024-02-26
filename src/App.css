@@ -46,6 +46,9 @@
 
 /* Add this to hide the scroll bar  */
 body, html {
+  width:100%;
+  min-width:1000px;
+  height:auto;	
   overflow: hidden;
 }
 
