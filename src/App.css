@@ -26,7 +26,7 @@
 }
 
 .App-logo {
-  height: 40vmin;
+  
   pointer-events: none;
 }
 
@@ -40,15 +40,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
   
 }
 
 /* Add this to hide the scroll bar  */
 body, html {
   width:100%;
-  min-width:1000px;
-  height:auto;	
+  height:100%;	
   overflow: hidden;
 }
 
@@ -176,7 +174,7 @@ svg path {
 
 /* CSS animation with cubic-bezier timing function */
 @keyframes pulse {
-  from {
+  1% {
     transform: scale(0.95);
     box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
 	 
@@ -188,7 +186,7 @@ svg path {
 	
   }
 
-  to {
+  100% {
     transform: scale(0.95);
     box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
 	 
