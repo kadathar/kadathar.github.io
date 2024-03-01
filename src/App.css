@@ -161,7 +161,7 @@ scale: 2.5;	/* larger selected circle size */
 svg g.active .hexagon {
   fill-opacity: 0.5;
   animation: pulse 3s ease-in-out infinite; 
-   transform: scale(0.95);
+  transform: scale(0.95);
 }
 
 
@@ -209,13 +209,15 @@ svg path {
 
 /* CSS animation with cubic-bezier timing function */
 @keyframes pulse {
- 
-  50% {
-    transform: scale(1.05);
-    box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
-	
+ from:{
+    transform: scale(.95);	
   }
-
+  50% {
+    transform: scale(1.05); 	
+  }
+to:{
+    transform: scale(.95);	
+  }
   animation-timing-function: cubic-bezier(0.4, 2.8, 0.4, 1.0); /* Customize the cubic-bezier control points */
 }
 
