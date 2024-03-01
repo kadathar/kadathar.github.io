@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { GridGenerator, HexGrid, Layout, Path, Text, Hexagon, HexUtils } from 'react-hexgrid';
 import './App.css';
 import ConfirmationModal from './ConfirmationModal'; // Import the ConfirmationModal component
-import { calculatePlayerScore, updatePlayerScore, checkVictoryCondition, findNextPlayerIndex, resetMovedUnits, checkSurroundedHexagons} from './GameLogic';
+import { findNextPlayerIndex, resetMovedUnits, checkSurroundedHexagons, pushCheck} from './GameLogic';
 
 class App extends Component {
   constructor(props) {
@@ -12,9 +12,9 @@ class App extends Component {
 
     // Define player representations
 this.players = [
-  { id: 0, name: "Player 0", color: "grey", shape: "circle", points: 0, score: 0 },
-  { id: 1, name: "Player 1", color: "blue", shape: "circle", points: 0, score: 0 },
-  { id: 2, name: "Player 2", color: "red", shape: "circle",  points: 0,  score: 0 },
+  { id: 0, name: "Player 0", color: "grey", shape: "circle", points: 0, score: 0},
+  { id: 1, name: "Player 1", color: "blue", shape: "circle", points: 0, score: 0},
+  { id: 2, name: "Player 2", color: "red", shape: "circle",  points: 0,  score: 0},
 ];
     
     // Create hexagons and assign them to players
@@ -120,50 +120,11 @@ if (isUnitHex && !clickedHex.moved && clickedHex.owner === currentPlayer.id) {
       return distance === 1 && (hex.hasUnit && hex.owner) !== currentPlayer.id;
     });
 	
+	
+	// Check if there is a unit behind the target hexagon that can be pushed
+	const PushCheck = pushCheck(hexagons, highlightedHexagons, targetHex);
 
-	
-	  // Check if there is a unit behind the target hexagon that can be pushed
-  const hasPushableUnit = highlightedHexagons.filter(hex => {
-    const direction = {
-      q: hex.q - targetHex.q,
-      r: hex.r - targetHex.r,
-      s: hex.s - targetHex.s
-    };
-	
-	
-	
-	    // Check if the direction is valid for pushing (q, r, or s is -1, 0, or 1)
-    if (Math.abs(direction.q) <= 1 && Math.abs(direction.r) <= 1 && Math.abs(direction.s) <= 1) {
-      const behindHex = {
-        q: hex.q + direction.q,
-        r: hex.r + direction.r,
-        s: hex.s + direction.s
-      };
-  
-      // Find the hexagon at the behindHex position
-      const behindHexagon = hexagons.find(hex => HexUtils.equals(hex, behindHex));
-	  
-	  const pushUnit = hexagons.find(hex => HexUtils.equals(hex, direction));
-	  
-	
-	  
-	  if(behindHexagon == undefined){
-		 
-		  return hex;
-	  }
-	   else if(!behindHexagon.hasUnit){  
-	   
-		return hex;
-	  } else if(!hex.hasUnit && !behindHex.hasUnit){
-		
-		return hex;
-	}
-    }
-	
-	});
-
-    this.setState({ highlightedHexagons : hasPushableUnit });	
-	
+    this.setState({ highlightedHexagons : PushCheck });	
 	
   } else {
     const highlightedHexagons = hexagons.filter(hex => {
@@ -184,39 +145,12 @@ if (isUnitHex && !clickedHex.moved && clickedHex.owner === currentPlayer.id) {
       const distance = HexUtils.distance(targetHex, hex);
       return distance === 1 && hex.hasUnit && hex.owner !== currentPlayer.id;
     });
-
 	
-	  // Check if there is a unit behind the target hexagon that can be pushed
-  const hasPushableUnit = highlightedHexagons.filter(hex => {
-    const direction = {
-      q: hex.q - targetHex.q,
-      r: hex.r - targetHex.r,
-      s: hex.s - targetHex.s
-    };
-	    // Check if the direction is valid for pushing (q, r, or s is -1, 0, or 1)
-    if (Math.abs(direction.q) <= 1 && Math.abs(direction.r) <= 1 && Math.abs(direction.s) <= 1) {
-      const behindHex = {
-        q: hex.q + direction.q,
-        r: hex.r + direction.r,
-        s: hex.s + direction.s
-      };
-  
-      // Find the hexagon at the behindHex position
-      const behindHexagon = hexagons.find(hex => HexUtils.equals(hex, behindHex));
-	  
-	  const pushUnit = hexagons.find(hex => HexUtils.equals(hex, direction));
-	  
-	  if(behindHexagon == undefined){
-		  return pushUnit;
-	  }
-	   else if(!behindHexagon.hasUnit){  
-		return pushUnit;
-	  } 
-    }		
-	});
+	// Check if there is a unit behind the target hexagon that can be pushed
+	const PushCheck = pushCheck(hexagons, highlightedHexagons, targetHex);
 
-    this.setState({ highlightedHexagons : hasPushableUnit });	
-	
+    this.setState({ highlightedHexagons : PushCheck });	
+
   }
   
 
@@ -430,6 +364,7 @@ hasValidActions() {
     const { hexagons, players, currentPlayer} = this.state;
 	
 	  const playerTileCounts = {};
+	  const playerUnitCounts = {};
 
   // Calculate the tile count for each player
   hexagons.forEach(hex => {
@@ -437,13 +372,24 @@ hasValidActions() {
     if (owner !== null) {
       if (!playerTileCounts[owner]) {
         playerTileCounts[owner] = 0;
+		playerUnitCounts[owner] = 0;
       }
       playerTileCounts[owner]++;
+	   if (hex.hasUnit == true){
+		playerUnitCounts[owner]++;
     }
+
+	}
   });
+  
+
+  //WORK IN PROGRESS
 
  currentPlayer.points = playerTileCounts[currentPlayer.id] + currentPlayer.score;
-	
+ 
+ if(playerUnitCounts[1] == 0 || playerUnitCounts[2] == 0){
+	 currentPlayer.points = playerTileCounts[currentPlayer.id] + currentPlayer.score + 40; //if no units remain + win = +40 points
+ }
 	
 	const hasVictory = currentPlayer.points >= 40;
 
@@ -457,12 +403,7 @@ hasValidActions() {
         !hex.attack && hex.adjacent
         
     );
-	
-
-	
-	
-      
-
+	    
 	if(hasVictory) {
 		
 		
@@ -486,6 +427,7 @@ hasValidActions() {
   };  
   
   
+  
 handleReset = () => {
 	
 window.location.reload();
@@ -498,22 +440,6 @@ window.location.reload();
 endTurn() {
   const { currentPlayer, hexagons } = this.state;
 
-  const playerScore = calculatePlayerScore(currentPlayer, hexagons);
-  const updatedPlayers = updatePlayerScore(this.players, currentPlayer, playerScore);
-
-  // Update this.players (if needed) no longer using
- // this.players = updatedPlayers;
-
-  if (checkVictoryCondition(currentPlayer, playerScore)) { 
-	  
-	  
-    alert(`${currentPlayer.name} wins with a score of ${currentPlayer.score + playerScore}!`);
-	
-	
-    // Handle game reset or victory actions here
-  } else {
-    // ... rest of the function
-  }
 
   const currentPlayerIndex = this.players.findIndex(player => player.id === currentPlayer.id);
   const nextPlayerIndex = findNextPlayerIndex(currentPlayerIndex, this.players);
@@ -653,13 +579,13 @@ toggleDisplayMode() {
 	
     return (
       <div className="App">
-        <h2></h2>
-		{this.renderPlayerStats()} {/* Render player tile counts */}  
-        {/* Update the button style to use the dynamic style */}
-      <p><button style={buttonStyle} onClick={() => this.endTurn()}>End Turn?</button></p>
+        
+		<h2> {this.renderPlayerStats()} {/* Render player tile counts */}  </h2>
+    
 		
-        <HexGrid width={900} height={800} viewBox="-45 -45 90 90" >
-          <Layout size={{ x: 7, y: 7 }} flat={false} spacing={1.1} origin={{ x: 0, y: 0 }}>
+        <HexGrid width={"95vw"} height={"90vh"} viewBox="-45 -45 90 90" >
+
+          <Layout size={{ x: 6, y: 6 }} flat={false} spacing={1.1} origin={{ x: 0, y: 0 }}>
             {hexagons.map((hex, i) => (
               <Hexagon
                 key={i}
@@ -670,6 +596,7 @@ toggleDisplayMode() {
                 className={highlightedHexagons.includes(hex) ? 'active' : (selectedHex === hex ? 'selected' : '') + (hex.pushed ? hex.pushed : '')}  // Apply 'pushed' class if hexagon is pushed
                 onClick={(e, h) => this.onClick(e, h)}
               >
+			  
               {/*  <Text>{HexUtils.getID(hex)}</Text>  */}
 			  {/*<Path start={path.start} end={selectedHex} /> //work on this to draw arrows*/}
 			  
@@ -695,7 +622,8 @@ toggleDisplayMode() {
 				{hex.count && !hex.pushed && (hex.owner !== currentPlayer) && (
                   <PointRenderer
                     	hex={hex}
-						currentPlayer={currentPlayer}	
+						currentPlayer={currentPlayer}
+											
                   />
                 )}	
 		
@@ -703,16 +631,27 @@ toggleDisplayMode() {
 			
 			
              </Hexagon>
+			
             ))}
+			
             <Path start={path.start} end={path.end} />
+
           </Layout>
         </HexGrid>
+		
+		 {/* THIS SHOWS THE SELECTED HEX AND SELECTED UNIT POSITIONS
+		 
+		
         {selectedUnit && (
           <p>Selected Unit: {HexUtils.getID(selectedUnitPosition)}</p>
         )}
         {selectedHex && (
           <p>Selected Hex: {HexUtils.getID(selectedHex)}</p>
         )}
+		
+				THIS SHOWS THE SELECTED HEX AND SELECTED UNIT POSITIONS */}
+				
+				
  {/* Conditionally show the ConfirmationModal */}
         { isModalShownThisTurn || hasValidActions ? true : (
           <ConfirmationModal
@@ -725,7 +664,7 @@ toggleDisplayMode() {
             onConfirm={() => this.handleConfirm()}
           />
         )}
-
+   <h3><button style={buttonStyle} onClick={() => this.endTurn()}>End Turn?</button></h3>
      </div>
     );
   }
@@ -737,25 +676,17 @@ class PointRenderer extends React.Component {
   
   render() {
     const { hex, shape, fill, fillOpacity, className, currentPlayer } = this.props;
-	
-    
-      return (      
-		
+	 
+      return (      	
       <text
-        className="push-animation"
-		 
+	  fill={fill}
+        className="push-animation"	 
 		 x="-0.5em"
-		 y="-0.5em" 
-		  
+		 y="-0.5em"   
       >
-        
-		
-
 	  +{hex.count}
-		
-		
-		
       </text>
+	  
 	  );  
     
     return null;
@@ -820,3 +751,4 @@ document.addEventListener('click', function () {
 });
 
 export default App;
+

@@ -5,7 +5,8 @@
 @media screen and (max-width: 600px) {
   /* Styles for small screens */
   body {
-    font-size: 14px; /* Adjust font size for small screens */
+    /* Adjust font size for small screens */
+	
   }
 
   /* Add more styles as needed */
@@ -14,7 +15,8 @@
 @media screen and (min-width: 601px) and (max-width: 1200px) {
   /* Styles for medium screens */
   body {
-    font-size: 16px; /* Adjust font size for medium screens */
+     /* Adjust font size for medium screens */
+	
   }
 
   /* Add more styles as needed */
@@ -23,6 +25,7 @@
 
 .App {
   text-align: center;
+  
 }
 
 .App-logo {
@@ -31,25 +34,54 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  padding: 20px;
+  background-color: #1b1c1d;
+  padding: 6px;
+  line-height: 6px;
   color: white;
+
 }
+
+h1 {
+
+text-align: center;
+
+}
+
+h2 {
+
+position: absolute;
+scale: 70%;
+top: 25px;
+right: -40px;
+
+
+}
+
+h3{
+
+position: relative;
+scale: 80%;
+bottom: 10vh;
+
+
+}
+
 
 .App-main {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100vh;
+  
   
 }
 
-/* Add this to hide the scroll bar  */
+
+/* Add this to hide the scroll bar  
 body, html {
-  width:100%;
-  height:100%;	
   overflow: hidden;
 }
-
+*/
 
 button {
     background-color: black;
@@ -85,9 +117,11 @@ svg g.score .hexagon {
   transition: fill-opacity .5s;	
   scale: 1.075;
  /* pointer-events: none;  this will remove issue with score but no button interaction */
-  
+
   
 }
+
+
 
 svg g.score .hexagon-group:hover {
   stroke-width: 0; /* Remove stroke on hover */
@@ -95,7 +129,6 @@ svg g.score .hexagon-group:hover {
   cursor: default; /* Remove pointer cursor on hover */
   
 }
-
 
 
 /* this is overriding ownership color
@@ -128,7 +161,7 @@ scale: 2.5;	/* larger selected circle size */
 svg g.active .hexagon {
   fill-opacity: 0.5;
   animation: pulse 3s ease-in-out infinite; 
-  transform: scale(0.95);
+   transform: scale(0.95);
 }
 
 
@@ -136,7 +169,7 @@ svg g.active .hexagon {
 svg .selected .hexagon {
   fill: ; /* Change the background color to yellow (or any other color you prefer) */
   filter: drop-shadow(2px 0px 4px antiquewhite);
-  backdrop-filter: sepia(to); 
+  backdrop-filter: sepia(100%); 
   fill-opacity: .15;
   pointer-events: none;
 }
@@ -154,11 +187,12 @@ svg g polygon {
   stroke-width: 0.2;
   transition: fill-opacity .5s;
   
+  
 }
 
 svg g text {
   font-size: 0.17em;
-  fill: white;
+  fill: black;
   fill-opacity: 0.7;
   transition: fill-opacity .5s;
 }
@@ -175,7 +209,7 @@ svg path {
 
 /* CSS animation with cubic-bezier timing function */
 @keyframes pulse {
-
+ 
   50% {
     transform: scale(1.05);
     box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
@@ -211,21 +245,21 @@ svg g[owner="2"] {
 /* PUSHED TARGET ANIMATIONS */
 
 @keyframes nudgeAnimationWest {
-  from {
+  0% {
 	transform: translateX(14%);
 	visibility: visible;
   }
   25% {
-	transform: translateX(1);
+	transform: translateX(10%);
   }
-  5 {
+  50% {
     transform: translateX(7%);
   }
   75% {
   
 	transform: translateX(3%);
   }
-  to {
+  100% {
     transform: translateX(-1%);
   }
 }
@@ -237,20 +271,20 @@ svg g.West .hexagon {
 
 
 @keyframes nudgeAnimationEast {
-  from {
+  0% {
 	transform: translateX(-14%);
 	visibility: visible;
   }
   25% {
-	transform: translateX(-1);
+	transform: translateX(-10%);
   }
-  5 {
+  50% {
     transform: translateX(-7%);
   }
   75% {
 	transform: translateX(-3%);
   }
-  to {
+  100% {
     transform: translateX(1%);
   }
 }
@@ -261,7 +295,7 @@ svg g.East .hexagon {
 }
 
 @keyframes nudgeAnimationNW {
-  from {
+  0% {
 	transform: translate(7.5%, 12.75%);
 	visibility: visible;
   }
@@ -269,13 +303,13 @@ svg g.East .hexagon {
  
 	transform: translate(5.625%, 9.5625%);
   }
-  5 {
+  50% {
     transform: translate(3.75%, 6.375%);
   }
   75% {
 	transform: translate(1.875%, 3.1875%);
   }
-  to {
+  100% {
     transform: translate(-1%, -1%);
   }
 }
@@ -287,20 +321,20 @@ svg g.NW .hexagon {
 
 
 @keyframes nudgeAnimationSE {
-  from {
+  0% {
 	transform: translate(-7.5%, -12.75%);
 	visibility: visible;
   }
   25% {
 	transform: translate(-5.625%, -9.5625%);
   }
-  5 {
+  50% {
     transform: translate(-3.75%, -6.375%);
   }
   75% {
 	transform: translate(-1.875%, -3.1875%);
   }
-  to {
+  100% {
     transform: translate(1%, 1%);
   }
 }
@@ -311,7 +345,7 @@ svg g.SE .hexagon {
 }
 
 @keyframes nudgeAnimationNE {
-  from {
+  0% {
 	transform: translate(-7.5%, 12.75%);
 	visibility: visible;
   }
@@ -325,7 +359,7 @@ svg g.SE .hexagon {
   
 	transform: translate(-1.875%, 3.1875%);
   }
-  to {
+  100% {
     transform: translate(1%, -1%);
   }
 }
@@ -336,7 +370,7 @@ svg g.NE .hexagon {
 }
 
 @keyframes nudgeAnimationSW {
-  from {
+  0% {
 	transform: translate(7.5%, -12.75%);
 	visibility: visible;
   }
@@ -349,7 +383,7 @@ svg g.NE .hexagon {
   75% {
 	transform: translate(1.875%, -3.1875%);
   }
-  to {
+  100% {
     transform: translate(-1%, 1%);
   }
 }
@@ -362,7 +396,7 @@ svg g.SW .hexagon {
 /* PUSH SOURCE ANIMATIONS */
 
 @keyframes snudgeAnimationWest {
-  from {
+  0% {
 	transform: translateX(0%);
 	scale: 4;
   }
@@ -376,7 +410,7 @@ svg g.SW .hexagon {
 	transform: translateX(-2%);
 	scale: 2;
   }
-  to {
+  100% {
     transform: translateX(0%);
 	scale: 1;
   }
@@ -389,7 +423,7 @@ scale: 2;	/* larget selected circle size */
 
 
 @keyframes snudgeAnimationEast {
-  from {
+  0% {
 	transform: translateX(0%);
 	scale: 4;
   }
@@ -403,7 +437,7 @@ scale: 2;	/* larget selected circle size */
 	transform: translateX(2%);
 	scale: 2;
   }
-  to {
+  100% {
     transform: translateX(0%);
 	scale: 1;
   }
@@ -417,7 +451,7 @@ scale: 2;	/* larget selected circle size */
 
 
 @keyframes snudgeAnimationWest {
-  from {
+  0% {
 	transform: translateX(0%);
 	scale: 4;
   }
@@ -431,7 +465,7 @@ scale: 2;	/* larget selected circle size */
 	transform: translateX(-2%);
 	scale: 2;
   }
-  to {
+  100% {
     transform: translateX(0%);
 	scale: 1;
   }
@@ -444,7 +478,7 @@ scale: 2;	/* larget selected circle size */
 
 
 @keyframes snudgeAnimationNW {
-  from {
+  0% {
 	transform: translate(0%, 0%);
 	scale: 4;
   }
@@ -458,7 +492,7 @@ scale: 2;	/* larget selected circle size */
 	transform: translate(-.85%, -1.5%);
 	scale: 2;
   }
-  to {
+  100% {
     transform: translate(0%);
 	scale: 1;
   }
@@ -470,7 +504,7 @@ scale: 2;	/* larget selected circle size */
 }
 
 @keyframes snudgeAnimationSE {
-  from {
+  0% {
 	transform: translate(0%, 0%);
 	scale: 4;
   }
@@ -484,7 +518,7 @@ scale: 2;	/* larget selected circle size */
 	transform: translate(.85%, 1.5%);
 	scale: 2;
   }
-  to {
+  100% {
     transform: translate(0%);
 	scale: 1;
   }
@@ -496,7 +530,7 @@ scale: 2;	/* larget selected circle size */
 }
 
 @keyframes snudgeAnimationNE {
-  from {
+  0% {
 	transform: translate(0%, 0%);
 	scale: 4;
   }
@@ -510,7 +544,7 @@ scale: 2;	/* larget selected circle size */
 	transform: translate(.85%, -1.5%);
 	scale: 2;
   }
-  to {
+  100% {
     transform: translate(0%);
 	scale: 1;
   }
@@ -522,7 +556,7 @@ scale: 2;	/* larget selected circle size */
 }
 
 @keyframes snudgeAnimationSW {
-  from {
+  0% {
 	transform: translate(0%, 0%);
 	scale: 4;
   }
@@ -536,7 +570,7 @@ scale: 2;	/* larget selected circle size */
 	transform: translate(-.85%, 1.5%);
 	scale: 2;
   }
-  to {
+  100% {
     transform: translate(0%);
 	scale: 1;
   }
@@ -552,7 +586,7 @@ scale: 2;	/* larget selected circle size */
 
 
 @keyframes fnudgeAnimationNW {
-  from {
+  0% {
 	transform: translate(1%, 1%);
 	visibility: visible;
 	opacity: 1;
@@ -561,7 +595,7 @@ scale: 2;	/* larget selected circle size */
     transform: translate(-7.5%, -12.75%);
 	opacity: 1;
   }
-  to { 
+  100% { 
 	transform: translate(-7.5%, -12.75%);
 	opacity: 0;
   }
@@ -574,7 +608,7 @@ opacity: 0;
 }
 
 @keyframes fnudgeAnimationNE {
-  from {
+  0% {
 	transform: translate(1%, 1%);
 	visibility: visible;
 	opacity: 1;
@@ -583,7 +617,7 @@ opacity: 0;
     transform: translate(7.5%, -12.75%);
 	opacity: 1;
   }
-  to { 
+  100% { 
 	transform: translate(7.5%, -12.75%);
 	opacity: 0;
   }
@@ -598,7 +632,7 @@ opacity: 0;
 
 
 @keyframes fnudgeAnimationSE {
-  from {
+  0% {
 	transform: translate(-1%, -1%);
 	visibility: visible;
 	opacity: 1;
@@ -607,7 +641,7 @@ opacity: 0;
     transform: translate(7.5%, 12.75%);
 	opacity: 1;
   }
-  to { 
+  100% { 
 	transform: translate(7.5%, 12.75%);
 	opacity: 0;
   }
@@ -619,7 +653,7 @@ opacity: 0;	/* larget selected circle size */
 }
 
 @keyframes fnudgeAnimationSW {
-  from {
+  0% {
 	transform: translate(-1%, -1%);
 	visibility: visible;
 	opacity: 1;
@@ -628,7 +662,7 @@ opacity: 0;	/* larget selected circle size */
     transform: translate(-7.5%, 12.75%);
 	opacity: 1;
   }
-  to { 
+  100% { 
 	transform: translate(-7.5%, 12.75%);
 	opacity: 0;
   }
@@ -640,7 +674,7 @@ opacity: 0;	/* larget selected circle size */
 }
 
 @keyframes fnudgeAnimationWest {
-  from {
+  0% {
 	transform: translateX(0%);
 	visibility: visible;
 	opacity: 1;
@@ -649,7 +683,7 @@ opacity: 0;	/* larget selected circle size */
     transform: translateX(-15%);
 	opacity: 1;
   }
-  to { 
+  100% { 
 	transform: translateX(-15%);
 	opacity: 0;
   }
@@ -661,7 +695,7 @@ opacity: 0;	/* larget selected circle size */
 }
 
 @keyframes fnudgeAnimationEast {
-  from {
+  0% {
 	transform: translateX(0%);
 	visibility: visible;
 	opacity: 1;
@@ -670,7 +704,7 @@ opacity: 0;	/* larget selected circle size */
     transform: translateX(15%);
 	opacity: 1;
   }
-  to { 
+  100% { 
 	transform: translateX(15%);
 	opacity: 0;
   }
@@ -695,11 +729,11 @@ text.push-animation {
 }
 
 @keyframes fade {
-  from {
+  0% {
     transform: translateY(2.5%);
     opacity: 1;
   }
-  to {
+  100% {
     transform: translateY(-5.5%);
     opacity: 0.2;
   }

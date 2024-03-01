@@ -30,13 +30,10 @@ const ConfirmationModal = ({ hexagons, players, currentPlayer, onReset, isOpen, 
     boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2)',
   };
 
-
-
   
-// Check if any player's score equals 20
-const hasVictory = players.some(player => player.points >= 40);
-
-
+  
+// Check if any player's score equals 40
+const hasVictory = players.some(player => player.points >= 40 ) ;
 
 
 	if(hasVictory) {

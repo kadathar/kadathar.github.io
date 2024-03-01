@@ -6,28 +6,6 @@ import './App.css';
 import ConfirmationModal from './ConfirmationModal'; // Import the ConfirmationModal component
 
 
-// Calculate the player's score (number of hexagons they own)
-function calculatePlayerScore(currentPlayer, hexagons) {
-  return hexagons.reduce((count, hex) => {
-    return hex.owner === currentPlayer.id ? count + 1 : count;
-  }, 0);
-}
-
-// Update the player's score
-function updatePlayerScore(players, currentPlayer, playerScore) {
-  return players.map(player => {
-    if (player.id === currentPlayer.id) {
-      return { ...player, score: player.score + playerScore };
-    }
-    return player;
-  });
-}
-
-// Check for victory condition (score >= 100)
-function checkVictoryCondition(currentPlayer, playerScore) {
-  return currentPlayer.score + playerScore >= 100;
-}
-
 // Find the next valid player that is not player 0
 function findNextPlayerIndex(currentPlayerIndex, players) {
   let nextPlayerIndex = (currentPlayerIndex + 1) % players.length;
@@ -138,9 +116,11 @@ function checkSurroundedHexagons(hexagons) {
         // Do any necessary actions when a unit is present
       } else {
         // Handle when there's no unit
-        alert('You made a new friend!');
+        alert('You made a new friend!');	
         hex.hasUnit = true;
-      }
+		
+					 
+	 }
     }
 	
     return hex;
@@ -149,11 +129,52 @@ function checkSurroundedHexagons(hexagons) {
   return updatedHexagons;
 }
 
+
+	  // Check if there is a unit behind the target hexagon that can be pushed
+  function pushCheck(hexagons, highlightedHexagons, targetHex) {
+  const hasPushableUnit= highlightedHexagons.filter(hex => {
+    const direction = {
+      q: hex.q - targetHex.q,
+      r: hex.r - targetHex.r,
+      s: hex.s - targetHex.s
+    };
+	
+	    // Check if the direction is valid for pushing (q, r, or s is -1, 0, or 1)
+    if (Math.abs(direction.q) <= 1 && Math.abs(direction.r) <= 1 && Math.abs(direction.s) <= 1) {
+      const behindHex = {
+        q: hex.q + direction.q,
+        r: hex.r + direction.r,
+        s: hex.s + direction.s
+      };
+  
+      // Find the hexagon at the behindHex position
+      const behindHexagon = hexagons.find(hex => HexUtils.equals(hex, behindHex));
+	  
+	  const pushUnit = hexagons.find(hex => HexUtils.equals(hex, direction));
+	  
+	
+	  
+	  if(behindHexagon == undefined){
+		 
+		  return hex;
+	  }
+	   else if(!behindHexagon.hasUnit){  
+	   
+		return hex;
+	  } else if(!hex.hasUnit && !behindHex.hasUnit){
+		
+		return hex;
+	}	
+    }	
+  }  
+  )
+  return hasPushableUnit;
+  };
+
+
 export{
-  calculatePlayerScore,
-  updatePlayerScore,
-  checkVictoryCondition,
   findNextPlayerIndex,
   resetMovedUnits,
-  checkSurroundedHexagons
+  checkSurroundedHexagons,
+  pushCheck
 };
